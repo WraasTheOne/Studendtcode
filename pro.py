@@ -1,9 +1,8 @@
-x = 1
+from tkinter import Y
+
 
 y = 1
-if x >= 0:
-    print(x)
-    x = x+1
 
-while y == 0:
-    print("Tekst")
+while y >= 0:
+    print(y)
+    y = y+1
