@@ -32,7 +32,7 @@ int main(void){
         //Printe ud
         print_omkreds(omkreds);
         print_omkreds(omkreds2);
-
+        //hej
 
     }
 
