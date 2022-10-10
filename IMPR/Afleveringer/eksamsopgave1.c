@@ -76,7 +76,7 @@ void do_next_op(char operator, double operand, double *akkumulator){
 }
 
 int is_binary(char operator){
-    if(operator == '#'|| operator == '%' || operator == '!'){
+    if(operator == '#'|| operator == '%' || operator == '!' || operator == 'q'){
         return 0;
     }
     else{
