@@ -21,14 +21,19 @@ int run_calculator(){
     {
         scan_data(&operator, &operand);
         do_next_op(operator, operand, &akkumulator);
-        printf("%lf", akkumulator);
+        if(operator != 'q'){
+            printf("nu er din sum %lf\n", akkumulator);
+        }
+        else {
+            printf("din sum er dermed %lf\n", akkumulator);
+        }
     } while (operator != 'q');
     
     return 0;
 }
 
 void scan_data(char *operator, double *operand){
-    scanf("%c", *operator);
+    scanf("%c", operator);
     if(is_binary(*operator) == 1){
         scanf("%lf", operand);
     }
