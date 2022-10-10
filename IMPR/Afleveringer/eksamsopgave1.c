@@ -3,44 +3,49 @@
 
 int run_calculator();
 int is_binary(char operator);
-void scan_data(char *operator, double *operand);
+void scan_data(char *operator, double * operand);
 void do_next_op(char operator, double operand, double *akkumulator);
 
-int main(void){
+int main(void)
+{
 
-    run_calculator();  
+    run_calculator();
     return 0;
-
 }
 
-int run_calculator(){
+int run_calculator()
+{
     char operator;
     double operand, akkumulator = 0;
 
     do
     {
-        scan_data(&operator, &operand);
+        scan_data(&operator, & operand);
         do_next_op(operator, operand, &akkumulator);
-        if(operator != 'q'){
+        if (operator!= 'q')
+        {
             printf("nu er din sum %lf\n", akkumulator);
         }
-        else {
+        else
+        {
             printf("din sum er dermed %lf\n", akkumulator);
         }
-    } while (operator != 'q');
-    
+    } while (operator!= 'q');
+
     return 0;
 }
 
-void scan_data(char *operator, double *operand){
+void scan_data(char *operator, double * operand)
+{
     scanf("%c", operator);
-    if(is_binary(*operator) == 1){
+    if (is_binary(*operator) == 1)
+    {
         scanf("%lf", operand);
     }
-
 }
 
-void do_next_op(char operator, double operand, double *akkumulator){
+void do_next_op(char operator, double operand, double *akkumulator)
+{
     switch (operator)
     {
     case '+':
@@ -65,21 +70,21 @@ void do_next_op(char operator, double operand, double *akkumulator){
         *akkumulator = -*akkumulator;
         break;
     case '!':
-        *akkumulator = (1/(*akkumulator));
+        *akkumulator = (1 / (*akkumulator));
         break;
     default:
         break;
     }
-    
-
-
 }
 
-int is_binary(char operator){
-    if(operator == '#'|| operator == '%' || operator == '!' || operator == 'q'){
+int is_binary(char operator)
+{
+    if (operator== '#' || operator== '%' || operator== '!' || operator== 'q')
+    {
         return 0;
     }
-    else{
+    else
+    {
         return 1;
     }
 }
