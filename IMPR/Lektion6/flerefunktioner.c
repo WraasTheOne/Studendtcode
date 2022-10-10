@@ -36,3 +36,4 @@ double Execute(int n, double s, char funktion)
         break;
     }
 }
+//hej
