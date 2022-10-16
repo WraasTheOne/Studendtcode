@@ -3,7 +3,7 @@
 
 int run_calculator();
 int is_binary(char operator);
-void scan_data(char *operator, double * operand);
+void scan_data(char *operator, double *operand);
 void do_next_op(char operator, double operand, double *akkumulator);
 
 int main(void)
@@ -21,21 +21,19 @@ int run_calculator()
     do
     {
         scan_data(&operator, & operand);
-        do_next_op(operator, operand, &akkumulator);
-        if (operator!= 'q')
-        {
-            printf("nu er din sum %lf\n", akkumulator);
+        if(operator != 'q'){
+            do_next_op(operator, operand, &akkumulator);
+            printf("Result so far is %lf\n", akkumulator);
+        }else{
+            printf("Final result is %lf\n", akkumulator);
         }
-        else
-        {
-            printf("din sum er dermed %lf\n", akkumulator);
-        }
+
     } while (operator!= 'q');
 
-    return 0;
+    return akkumulator;
 }
 
-void scan_data(char *operator, double * operand)
+void scan_data(char *operator, double *operand)
 {
     scanf("%c", operator);
     if (is_binary(*operator) == 1)
@@ -58,13 +56,22 @@ void do_next_op(char operator, double operand, double *akkumulator)
         *akkumulator *= operand;
         break;
     case '/':
-        *akkumulator /= operand;
+        if(operand == 0){
+            *akkumulator = *akkumulator;
+        }else 
+        {
+            *akkumulator /= operand;
+        }
         break;
     case '^':
         *akkumulator = pow(*akkumulator, operand);
         break;
     case '#':
-        *akkumulator = sqrt(*akkumulator);
+        if(*akkumulator <= 0){
+            *akkumulator = *akkumulator;       
+        }else{
+            *akkumulator = sqrt(*akkumulator);
+        }
         break;
     case '%':
         *akkumulator = -*akkumulator;
