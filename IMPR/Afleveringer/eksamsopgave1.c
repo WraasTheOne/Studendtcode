@@ -4,7 +4,7 @@
 int run_calculator();
 int is_binary(char operator);
 void scan_data(char *operator, double *operand);
-void do_next_op(char operator, double operand, double *akkumulator);
+double do_next_op(char operator, double operand, double akkumulator);
 
 int main(void)
 {
@@ -20,9 +20,9 @@ int run_calculator()
 
     do
     {
-        scan_data(&operator, & operand);
+        scan_data(&operator, &operand);
         if(operator != 'q'){
-            do_next_op(operator, operand, &akkumulator);
+            akkumulator = do_next_op(operator, operand, akkumulator);
             printf("Result so far is %lf\n", akkumulator);
         }else{
             printf("Final result is %lf\n", akkumulator);
@@ -42,46 +42,47 @@ void scan_data(char *operator, double *operand)
     }
 }
 
-void do_next_op(char operator, double operand, double *akkumulator)
+double do_next_op(char operator, double operand, double akkumulator)
 {
     switch (operator)
     {
     case '+':
-        *akkumulator += operand;
+        akkumulator += operand;
         break;
     case '-':
-        *akkumulator -= operand;
+        akkumulator -= operand;
         break;
     case '*':
-        *akkumulator *= operand;
+        akkumulator *= operand;
         break;
     case '/':
         if(operand == 0){
-            *akkumulator = *akkumulator;
+            akkumulator = akkumulator;
         }else 
         {
-            *akkumulator /= operand;
+            akkumulator /= operand;
         }
         break;
     case '^':
-        *akkumulator = pow(*akkumulator, operand);
+        akkumulator = pow(akkumulator, operand);
         break;
     case '#':
-        if(*akkumulator <= 0){
-            *akkumulator = *akkumulator;       
+        if(akkumulator <= 0){
+            akkumulator = akkumulator;       
         }else{
-            *akkumulator = sqrt(*akkumulator);
+            akkumulator = sqrt(akkumulator);
         }
         break;
     case '%':
-        *akkumulator = -*akkumulator;
+        akkumulator = -akkumulator;
         break;
     case '!':
-        *akkumulator = (1 / (*akkumulator));
+        akkumulator = (1 / (akkumulator));
         break;
     default:
         break;
     }
+    return akkumulator;
 }
 
 int is_binary(char operator)
