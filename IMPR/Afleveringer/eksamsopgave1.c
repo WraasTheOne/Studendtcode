@@ -3,7 +3,7 @@
 
 int run_calculator();
 int is_binary(char operator);
-void scan_data(char *operator, double *operand);
+void scan_data(char *operator, double * operand);
 double do_next_op(char operator, double operand, double akkumulator);
 
 int main(void)
@@ -20,11 +20,14 @@ int run_calculator()
 
     do
     {
-        scan_data(&operator, &operand);
-        if(operator != 'q'){
+        scan_data(&operator, & operand);
+        if (operator!= 'q')
+        {
             akkumulator = do_next_op(operator, operand, akkumulator);
             printf("Result so far is %lf\n", akkumulator);
-        }else{
+        }
+        else
+        {
             printf("Final result is %lf\n", akkumulator);
         }
 
@@ -33,9 +36,9 @@ int run_calculator()
     return akkumulator;
 }
 
-void scan_data(char *operator, double *operand)
+void scan_data(char *operator, double * operand)
 {
-    scanf("%c", operator);
+    scanf(" %c", operator);
     if (is_binary(*operator) == 1)
     {
         scanf("%lf", operand);
@@ -56,9 +59,11 @@ double do_next_op(char operator, double operand, double akkumulator)
         akkumulator *= operand;
         break;
     case '/':
-        if(operand == 0){
+        if (operand == 0)
+        {
             akkumulator = akkumulator;
-        }else 
+        }
+        else
         {
             akkumulator /= operand;
         }
@@ -67,9 +72,12 @@ double do_next_op(char operator, double operand, double akkumulator)
         akkumulator = pow(akkumulator, operand);
         break;
     case '#':
-        if(akkumulator <= 0){
-            akkumulator = akkumulator;       
-        }else{
+        if (akkumulator <= 0)
+        {
+            akkumulator = akkumulator;
+        }
+        else
+        {
             akkumulator = sqrt(akkumulator);
         }
         break;
