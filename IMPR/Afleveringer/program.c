@@ -1,3 +1,9 @@
+/*
+Nicholas Mazur Hansen
+nmha22@student.aau.dk
+Cyber- og computerteknologi
+*/
+
 #include <stdio.h>
 #include <math.h>
 
@@ -13,6 +19,7 @@ int main(void)
     return 0;
 }
 
+// run_calulator står for at køre de nødvendige funktioner
 int run_calculator()
 {
     char operator;
@@ -36,8 +43,10 @@ int run_calculator()
     return akkumulator;
 }
 
+// scan_data har til formål at indhente de indput som brugeren taster ind
 void scan_data(char *operator, double * operand)
 {
+    printf("Enter operator, and and an optional operand:");
     scanf(" %c", operator);
     if (is_binary(*operator) == 1)
     {
@@ -45,6 +54,7 @@ void scan_data(char *operator, double * operand)
     }
 }
 
+// do_next_op er en funktion som udfører den påkrvende matematiske operation
 double do_next_op(char operator, double operand, double akkumulator)
 {
     switch (operator)
@@ -93,6 +103,7 @@ double do_next_op(char operator, double operand, double akkumulator)
     return akkumulator;
 }
 
+// is_binary skal afgøre om brugeren har tastet en binær eller unær operator ind
 int is_binary(char operator)
 {
     if (operator== '#' || operator== '%' || operator== '!' || operator== 'q')
@@ -104,3 +115,6 @@ int is_binary(char operator)
         return 1;
     }
 }
+
+
+
