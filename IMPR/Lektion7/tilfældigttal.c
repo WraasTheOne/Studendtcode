@@ -9,7 +9,7 @@ int main(void)
 
     do
     {
-        printf("vælg et tal mellem 1 og 10\n");
+        printf("vælg et tal mellem 1 og  10\n");
         scanf("%d", &spiller_tal);
 
         tal_1 = (rand() % 10) + 1;
