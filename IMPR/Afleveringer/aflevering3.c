@@ -13,10 +13,10 @@ int main(void)
     int n;
 
     printf("angiv værdier for a,b og n, med mellemrum mellem dem\n");
-    scanf("%lf %lf %d",&a,&b,&n);
+    scanf("%lf %lf %d", &a, &b, &n);
 
     printf("vil du bruge funktionen h eller g\n");
-    scanf(" %c",&funktions_valg);
+    scanf(" %c", &funktions_valg);
 
     switch (funktions_valg)
     {
@@ -26,11 +26,11 @@ int main(void)
     case 'g':
         f = g;
     default:
-        printf("error");
+        printf("error\n");
         break;
     }
 
-    Trap(a, b, (*f),n);
+    Trap(a, b, (*f), n);
 
     return 0;
 }
@@ -46,15 +46,14 @@ void Trap(double a, double b, double (*f)(double), int n)
         sum = sum + (*f)(x);
     }
 
+    T = (h_bergnet / 2) * ((*f)(a) + (*f)(b) + 2 * (sum));
 
-    T = (h_bergnet/2)*((*f)(a)+(*f)(b)+2*(sum));
-
-    printf("%lf",T);
+    printf("%lf", T);
 }
 
 double h(double x)
 {
-    return sqrt((4 - pow(x, 2)));
+    return sqrt(4 - pow(x, 2));
 }
 
 double g(double x)
