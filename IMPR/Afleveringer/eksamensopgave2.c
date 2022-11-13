@@ -35,6 +35,6 @@ void roll_multiple_dies(int N, int dies[])
     int i;
     for (i = 0; i < N; i++)
     {
-        
+        //hej
     }
 }
