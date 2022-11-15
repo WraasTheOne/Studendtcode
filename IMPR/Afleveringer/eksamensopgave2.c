@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <time.h>
 
-const char *Yatzy_runder[] = {"1-ere", "2-ere", "3-ere", "4-ere", "5-ere", "6-ere", "Bonus","Et par", "To par", "Tre ens", "Fire ens", "Lille", "Stor", "Fuld hus", "Chance", "YATZY", "TOTAl"};
+const char *Yatzy_runder[] = {"1-ere", "2-ere", "3-ere", "4-ere", "5-ere", "6-ere", "Bonus", "Et par", "To par", "Tre ens", "Fire ens", "Lille", "Stor", "Fuld hus", "Chance", "YATZY", "TOTAl"};
 
 #define Yatzyrunder 16
 
@@ -23,16 +23,18 @@ int main(void)
     }
 
     int point[Yatzyrunder];
-    int dies[N];
+    int dies[N][Yatzyrunder];
 
-    for (i = 1; i < 7; i++)
+    roll_multiple_dies(N, dies);
+
+    /*for (i = 1; i < 7; i++)
     {
         roll_multiple_dies(N, dies);
 
         ere(dies, N, point, i);
         print_output(point, dies);
     }
-    /*roll_multiple_dies(N, dies);
+    roll_multiple_dies(N, dies);
 
     ere(dies, N, point);
 
@@ -41,22 +43,23 @@ int main(void)
     return 0;
 }
 
+void roll_multiple_dies(int N, int dies[])
+{
+    int i;
+    
+        for (i = 0; i < N; i++)
+        {
+            dies[i] = (rand() % 6) + 1;
+        }
+    
+}
+
 int scandata()
 {
     int N = 0;
     printf("Yatzy with how many dies (a number less than 5 terminates)");
     scanf("%d", &N);
     return N;
-}
-
-void roll_multiple_dies(int N, int dies[])
-{
-
-    int i;
-    for (i = 0; i < N; i++)
-    {
-        dies[i] = (rand() % 6) + 1;
-    }
 }
 
 void ere(int dies[], int N, int point[], int i)
