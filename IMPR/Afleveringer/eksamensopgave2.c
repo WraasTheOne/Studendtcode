@@ -12,6 +12,7 @@ int scandata();
 void roll_multiple_dies(int N, int *dies);
 void ere(int *dies, int N, int *point);
 int print_output(int *point, int *dies, int N);
+void bonus(int point[]);
 
 int main(void)
 {
@@ -27,6 +28,7 @@ int main(void)
     int *dies = malloc(Yatzyrunder * N * sizeof(int));
     roll_multiple_dies(N, dies);
     ere(dies, N, point);
+    bonus(point);
 
     print_output(point, dies, N);
 
@@ -75,7 +77,7 @@ int print_output(int *point, int *dies, int N)
     int j, i;
     for (j = 0; j < Yatzyrunder; j++)
     {
-        printf("%s ", *Yatzy_runder);
+        printf("%s ", Yatzy_runder[j]);
         for (i = 0; i < N; i++)
         {
             printf("%d ", dies[j * N + i]);
@@ -83,4 +85,15 @@ int print_output(int *point, int *dies, int N)
         printf("-- %d\n", point[j]);
     }
     return 0;
+}
+
+void bonus(int point[]){
+    int sum, i,j;
+    for(i = 1; i < 7; i++){
+        for(j = 0; j < 6; j++)
+        sum = sum + (point[j]*j);
+    }
+    if(sum >= 63){
+        point[6] = 50;
+    }
 }
