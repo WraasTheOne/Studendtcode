@@ -13,6 +13,8 @@ void roll_multiple_dies(int N, int *dies);
 void ere(int *dies, int N, int *point);
 int print_output(int *point, int *dies, int N);
 void bonus(int point[]);
+void ens_terninger(int dies[], int ens[], int i, int N, int j);
+void et_par(int ens[]);
 
 int main(void)
 {
@@ -26,9 +28,15 @@ int main(void)
 
     int *point = malloc(Yatzyrunder * sizeof(int));
     int *dies = malloc(Yatzyrunder * N * sizeof(int));
+    int *ens = malloc(6 * sizeof(int));
     roll_multiple_dies(N, dies);
     ere(dies, N, point);
     bonus(point);
+
+    
+    ens_terninger(dies, ens, i, N, j);
+    et_par(ens);
+    
 
     print_output(point, dies, N);
 
@@ -64,10 +72,9 @@ void ere(int *dies, int N, int *point)
             if (dies[i * N + j] == i + 1)
             {
                 sum = sum + 1;
-                printf("%d\n", sum);
             }
         }
-        point[i] = sum;
+        point[i] = sum * (1 + i);
         sum = 0;
     }
 }
@@ -87,13 +94,61 @@ int print_output(int *point, int *dies, int N)
     return 0;
 }
 
-void bonus(int point[]){
-    int sum, i,j;
-    for(i = 1; i < 7; i++){
-        for(j = 0; j < 6; j++)
-        sum = sum + (point[j]*j);
+void bonus(int point[])
+{
+    int sum, i, j;
+    for (i = 0; i < 6; i++)
+    {
+        for (j = 0; j < 6; j++)
+        {
+            sum = sum + (point[j]);
+        }
     }
-    if(sum >= 63){
+    if (sum >= 63)
+    {
         point[6] = 50;
     }
 }
+
+void ens_terninger(int dies[], int ens[], int i, int N, int j)
+{
+    for (i = 0; i < N; i++)
+    {
+        switch (dies[i + N*j])
+        {
+        case 1:
+            ens[0] += 1;
+            break;
+        case 2:
+            ens[1] += 1;
+            break;
+        case 3:
+            ens[2] += 1;
+            break;
+        case 4:
+            ens[3] += 1;
+            break;
+        case 5:
+            ens[4] += 1;
+            break;
+        case 6:
+            ens[5] += 1;
+            break;
+        }
+    }
+}
+
+void et_par(int ens[]){
+    int i;
+    for(i = 0; i < 6; i++){
+        if (ens[i] >= 0)
+        {
+            
+        }
+        
+    }
+}
+
+
+
+
