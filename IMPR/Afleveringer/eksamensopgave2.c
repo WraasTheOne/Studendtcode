@@ -13,8 +13,8 @@ void roll_multiple_dies(int N, int *dies);
 void ere(int *dies, int N, int *point);
 int print_output(int *point, int *dies, int N);
 void bonus(int point[]);
-void ens_terninger(int dies[], int ens[], int i, int N, int j);
-void et_par(int ens[]);
+void ens_terninger(int dies[], int ens[], int N, int j);
+void par_og_ens(int ens[], int point[], int i);
 
 int main(void)
 {
@@ -33,9 +33,10 @@ int main(void)
     ere(dies, N, point);
     bonus(point);
 
-    
-    ens_terninger(dies, ens, i, N, j);
-    et_par(ens);
+    for(j = 7; j < 11; j++){
+    ens_terninger(dies, ens, N, j);
+    par_og_ens(ens, point, j);
+    }
     
 
     print_output(point, dies, N);
@@ -110,8 +111,12 @@ void bonus(int point[])
     }
 }
 
-void ens_terninger(int dies[], int ens[], int i, int N, int j)
+void ens_terninger(int dies[], int ens[], int N, int j)
 {
+    int i, k;
+    for(k = 0; k < N; k++){
+        ens[k] = 0;
+    }
     for (i = 0; i < N; i++)
     {
         switch (dies[i + N*j])
@@ -138,14 +143,47 @@ void ens_terninger(int dies[], int ens[], int i, int N, int j)
     }
 }
 
-void et_par(int ens[]){
-    int i;
-    for(i = 0; i < 6; i++){
-        if (ens[i] >= 0)
-        {
-            
+void par_og_ens(int ens[], int point[], int j){
+int i, counter = 0;
+    switch (j)
+    {
+    case 7:
+        for(i = 5; i >= 0; i--){
+            if(ens[i] >= 2){
+                point[7] = 2*(i+1);
+                break;
+            }
         }
-        
+        break;
+    case 8:
+        for(i = 5; i >= 0; i--){
+            if(ens[i] >= 2){
+                point[8] += (2*(i+1));
+                counter += 1;
+            }
+            if(counter == 2){
+                break;
+            }
+        }
+        break;
+    case 9:
+        for(i = 5; i >=0; i--){
+            if(ens[i] > 2){
+                point[9] = 3*(i+1);
+                printf("%d; %d; %d; %d\n", point[9], i, j, ens[i]);
+                break;
+            }
+        }
+        break;
+    case 10:
+        for(i = 5; i >=0; i--){
+            if(ens[i] > 3){
+                point[10] = 4*(i+1);
+                printf("%d; %d; %d; %d\n", point[10], i, j, ens[i]);
+                break;
+            }
+        }
+        break;
     }
 }
 
