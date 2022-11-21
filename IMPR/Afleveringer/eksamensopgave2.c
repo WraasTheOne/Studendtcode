@@ -11,16 +11,17 @@ int scandata();
 
 void roll_multiple_dies(int N, int *dies);
 void ere(int *dies, int N, int *point);
-int print_output(int *point, int *dies, int N);
+int print_output(int *point, int *dies, int N, int total);
 void bonus(int point[]);
 void ens_terninger(int dies[], int ens[], int N, int j);
 void par_og_ens(int ens[], int point[], int i);
-int special_spil(int ens[], int j, int point[]);
+void special_spil(int ens[], int j, int point[]);
+int sum(int point[]);
 
 int main(void)
 {
     srand(time(NULL));
-    int N = 9, i, j;
+    int N = 9, i, j, total;
     // N = scandata();
     if (N < 5)
     {
@@ -44,9 +45,8 @@ int main(void)
         special_spil(ens, j, point);
 
     }
-    
-
-    print_output(point, dies, N);
+    total = sum(point);
+    print_output(point, dies, N, total);
 
     return 0;
 }
@@ -87,7 +87,7 @@ void ere(int *dies, int N, int *point)
     }
 }
 
-int print_output(int *point, int *dies, int N)
+int print_output(int *point, int *dies, int N, int total)
 {
     int j, i;
     for (j = 0; j < Yatzyrunder; j++)
@@ -189,19 +189,20 @@ int i, counter = 0;
     }
 }
 
-int special_spil(int ens[], int j, int point[]){
+void special_spil(int ens[], int j, int point[]){
 int i, counter = 0, chance = 0, overskud = 0;
     switch (j)
     {
     case 11:
         if(ens[0] > 0 && ens[1] > 0 && ens[2] > 0 && ens[3] > 0 && ens[4] > 0){
-            point[11] = 15;
+            point[12] = 15;
         }
         break;
     case 12:
         if(ens[1] > 0 && ens[2] > 0 && ens[3] > 0 && ens[4] > 0 && ens[5] > 0){
-            point[11] = 15;
+            point[13] = 20;
         }
+        break;
     case 13:
         for(i = 5; i >= 0; i--){
             chance = chance + (ens[i]*(i+1));
@@ -221,10 +222,19 @@ int i, counter = 0, chance = 0, overskud = 0;
                 break;
             }
         }
+    break;
+    case 14:
+        if(ens[0] > 0 && ens[1] > 0 && ens[2] > 0 && ens[3] > 0 && ens[4] > 0 && ens[5] > 0){
+            point[15] = 50;
+        }
         break;
-    
     }
-    return 0;
 }
 
-
+int sum(int point[]){
+    int i, sum = 0;
+    for(i = 0; i <= Yatzyrunder; i++){
+        sum += point[i];
+    }
+    return sum;
+}
