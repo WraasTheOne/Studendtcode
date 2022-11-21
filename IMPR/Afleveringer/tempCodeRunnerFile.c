@@ -1,2 +1,3 @@
-void par_og_ens(int ens[]){
-// }
+if(sum > ((i+1) * 6)){
+        //     sum = ((i+1)*6);
+        // }
