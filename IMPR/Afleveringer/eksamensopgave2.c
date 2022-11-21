@@ -59,6 +59,7 @@ int main(void)
     
     return 0;
 }
+
 // kaster mange terninger
 void roll_multiple_dies(int N, int dies[])
 {
