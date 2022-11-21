@@ -5,7 +5,7 @@
 
 const char *Yatzy_runder[] = {"1-ere", "2-ere", "3-ere", "4-ere", "5-ere", "6-ere", "Bonus", "Et par", "To par", "Tre ens", "Fire ens", "Lille", "Stor", "Fuld hus", "Chance", "YATZY", "TOTAl"};
 
-#define Yatzyrunder 16
+#define Yatzyrunder 17
 
 int scandata();
 
@@ -15,6 +15,7 @@ int print_output(int *point, int *dies, int N);
 void bonus(int point[]);
 void ens_terninger(int dies[], int ens[], int N, int j);
 void par_og_ens(int ens[], int point[], int i);
+int special_spil(int ens[], int j, int point[]);
 
 int main(void)
 {
@@ -36,6 +37,12 @@ int main(void)
     for(j = 7; j < 11; j++){
     ens_terninger(dies, ens, N, j);
     par_og_ens(ens, point, j);
+    }
+
+    for (j = 11; j < 16; j++){
+        ens_terninger(dies, ens, N, j);
+        special_spil(ens, j, point);
+
     }
     
 
@@ -97,14 +104,11 @@ int print_output(int *point, int *dies, int N)
 
 void bonus(int point[])
 {
-    int sum, i, j;
-    for (i = 0; i < 6; i++)
-    {
-        for (j = 0; j < 6; j++)
+    int sum = 0, j;
+    for (j = 0; j < 6; j++)
         {
             sum = sum + (point[j]);
         }
-    }
     if (sum >= 63)
     {
         point[6] = 50;
@@ -170,7 +174,6 @@ int i, counter = 0;
         for(i = 5; i >=0; i--){
             if(ens[i] > 2){
                 point[9] = 3*(i+1);
-                printf("%d; %d; %d; %d\n", point[9], i, j, ens[i]);
                 break;
             }
         }
@@ -179,7 +182,6 @@ int i, counter = 0;
         for(i = 5; i >=0; i--){
             if(ens[i] > 3){
                 point[10] = 4*(i+1);
-                printf("%d; %d; %d; %d\n", point[10], i, j, ens[i]);
                 break;
             }
         }
@@ -187,6 +189,42 @@ int i, counter = 0;
     }
 }
 
-
+int special_spil(int ens[], int j, int point[]){
+int i, counter = 0, chance = 0, overskud = 0;
+    switch (j)
+    {
+    case 11:
+        if(ens[0] > 0 && ens[1] > 0 && ens[2] > 0 && ens[3] > 0 && ens[4] > 0){
+            point[11] = 15;
+        }
+        break;
+    case 12:
+        if(ens[1] > 0 && ens[2] > 0 && ens[3] > 0 && ens[4] > 0 && ens[5] > 0){
+            point[11] = 15;
+        }
+    case 13:
+        for(i = 5; i >= 0; i--){
+            chance = chance + (ens[i]*(i+1));
+            counter += ens[i];
+            printf("%d; %d; %d\n", counter, chance, ens[i]);
+            if(counter > 5){
+                overskud = counter - 5;
+                printf("%d;%d; %d; %d\n\n", overskud, counter, chance, ens[i]);
+                chance = chance - (overskud*(i+1));
+                printf("%d;%d; %d; %d\n", overskud, counter, chance, ens[i]);
+                point[14] = chance;
+                break;
+            }else if (counter == 5)
+            {
+                printf("%d; %d; %d;\n", counter, chance, ens[i]);
+                point[14] = chance;
+                break;
+            }
+        }
+        break;
+    
+    }
+    return 0;
+}
 
 
