@@ -13,6 +13,7 @@ const char *Yatzy_runder[] = {"1-ere", "2-ere", "3-ere", "4-ere", "5-ere", "6-er
 
 #define Yatzyrunder 17
 
+// her er alle minde prototyper
 int print_output(int *point, int dies[], int N, int j);
 int scandata();
 void roll_multiple_dies(int N, int dies[]);
@@ -21,10 +22,10 @@ void ens_terninger(int dies[], int *ens, int N);
 void par_og_ens(int *ens, int *point, int j);
 void special_spil(int *ens, int j, int *point);
 int sum(int *point);
+int print_score(int *point, int N);
+void bonus(int *point);
 
-
-
-
+// i min main har jeg lavet fire underrunder (ere,bonus, par og ens og special spil)
 int main(void)
 {
     srand(time(NULL));
@@ -42,35 +43,43 @@ int main(void)
             print_output(point, dies, N, j);
         }
 
-        for(j = 7; j < 11; j++){
+        bonus(point);
+
+        for (j = 7; j < 11; j++)
+        {
             roll_multiple_dies(N, dies);
             ens_terninger(dies, ens, N);
             par_og_ens(ens, point, j);
             print_output(point, dies, N, j);
         }
 
-        for(j = 11; j < 16; j++){
+        for (j = 11; j < 16; j++)
+        {
             roll_multiple_dies(N, dies);
             ens_terninger(dies, ens, N);
             special_spil(ens, j, point);
             print_output(point, dies, N, j);
         }
         point[16] = sum(point);
+        print_score(point, N);
         N = scandata();
 
     } while (N > 4);
 }
 
-int print_output(int *point, int dies[], int N, int j){
+// her er outputtet for mine terninger og scorer
+int print_output(int *point, int dies[], int N, int j)
+{
     int i;
     printf("%s ", Yatzy_runder[j]);
-    for(i = 0; i < N; i++){
+    for (i = 0; i < N; i++)
+    {
         printf("%d ", dies[i]);
     }
     printf(" -- %d\n", point[j]);
     return 0;
 }
-
+// her scaner jeg data ind fra brugeren
 int scandata()
 {
     int N = 0;
@@ -79,7 +88,7 @@ int scandata()
     printf("\nprinting dies:\n");
     return N;
 }
-
+// her kaster jeg med N antal terninger
 void roll_multiple_dies(int N, int dies[])
 {
     int i;
@@ -88,7 +97,7 @@ void roll_multiple_dies(int N, int dies[])
         dies[i] = (rand() % 6) + 1;
     }
 }
-
+// her bliver point for de første 6 spil talt op
 void ere(int dies[], int N, int *point, int j)
 {
     int i;
@@ -103,7 +112,7 @@ void ere(int dies[], int N, int *point, int j)
     }
     point[j] = sum * (1 + j);
 }
-
+// her tæller jeg hvor mange ens terninger der er i et kast
 void ens_terninger(int dies[], int *ens, int N)
 {
     int i, k;
@@ -136,8 +145,7 @@ void ens_terninger(int dies[], int *ens, int N)
         }
     }
 }
-
-
+// her optæller jeg point for runder med par og 3/4 ens
 void par_og_ens(int *ens, int *point, int j)
 {
     int i, counter = 0;
@@ -158,7 +166,7 @@ void par_og_ens(int *ens, int *point, int j)
         {
             if (ens[i] >= 2)
             {
-                point[8] += (2 * (i + 1));
+                point[8] = (2 * (i + 1));
                 counter += 1;
             }
             if (counter == 2)
@@ -189,7 +197,7 @@ void par_og_ens(int *ens, int *point, int j)
         break;
     }
 }
-
+// her optælles point for de resterende runder
 void special_spil(int *ens, int j, int *point)
 {
     int i, counter = 0, chance = 0, overskud = 0, k;
@@ -227,7 +235,7 @@ void special_spil(int *ens, int j, int *point)
         {
             chance = chance + (ens[i] * (i + 1));
             counter += ens[i];
-            
+
             if (counter > 5)
             {
                 overskud = counter - 5;
@@ -243,14 +251,14 @@ void special_spil(int *ens, int j, int *point)
         }
         break;
     case 15:
-        if (ens[0] > 0 && ens[1] > 0 && ens[2] > 0 && ens[3] > 0 && ens[4] > 0 && ens[5] > 0)
+        if (ens[0] > 0 || ens[1] > 0 || ens[2] > 0 || ens[3] > 0 || ens[4] > 0 || ens[5] > 0)
         {
             point[15] = 50;
         }
         break;
     }
 }
-
+// her summere jeg min totale sum
 int sum(int *point)
 {
     int i, sum = 0;
@@ -259,4 +267,32 @@ int sum(int *point)
         sum += point[i];
     }
     return sum;
+}
+// her printer jeg score boardet
+int print_score(int *point, int N)
+{
+    int i;
+    printf("\nScore board\n");
+    for (i = 0; i < Yatzyrunder; i++)
+    {
+        printf("%s : %d\n", Yatzy_runder[i], point[i]);
+        if (i == 6)
+        {
+            printf("\n");
+        }
+    }
+    return 0;
+}
+// her tjekkes der for bonus
+void bonus(int *point)
+{
+    int sum = 0, j;
+    for (j = 0; j < 6; j++)
+    {
+        sum = sum + (point[j]);
+    }
+    if (sum >= 63)
+    {
+        point[6] = 50;
+    }
 }
