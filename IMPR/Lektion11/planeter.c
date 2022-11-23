@@ -57,6 +57,6 @@ planet indlaes_planet(void){
 
 
 void print_planet(planet p, int længde, FILE *f){
-    fprintf(f, "%s %lf %lf\n", p.navn, p.radius, p.masse);
+    fprintf(f, "%s %.2e %.2e\n", p.navn, p.radius, p.masse);
 
 }
