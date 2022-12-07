@@ -27,6 +27,7 @@ typedef struct
 } HOLD;
 
 void scan_data(FILE *file, KAMP *kamp_array);
+void indsaet_data();
 
 int main(void)
 {
@@ -38,7 +39,7 @@ int main(void)
 
     scan_data(file, kamp_array);
 
-    indsaet_data();
+    // indsaet_data();
 
     return 0;
 }
