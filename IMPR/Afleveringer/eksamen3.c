@@ -45,7 +45,7 @@ int main(void)
     HOLD hold_array[antal_hold] = {0};
 
     FILE *file;
-    file = fopen("fodbold_kampe.txt", "r");
+    file = fopen("kampe-2022-2023.txt", "r");
 
     scan_data(file, kamp_array);
 
