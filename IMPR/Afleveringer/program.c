@@ -4,9 +4,14 @@ nmha22@student.aau.dk
 Cyber- og computerteknologi
 */
 
+
+
+// præprocesser 
+// libary inclusions
 #include <stdio.h>
 #include <math.h>
 
+//prototyper
 int run_calculator();
 int is_binary(char operator);
 void scan_data(char *operator, double * operand);

@@ -36,6 +36,7 @@ int main(void)
     do
     {
         int dies[N];
+        
         for (j = 0; j < 6; j++)
         {
             roll_multiple_dies(N, dies);
@@ -258,6 +259,7 @@ void special_spil(int *ens, int j, int *point)
         break;
     }
 }
+
 // her summere jeg min totale sum
 int sum(int *point)
 {
@@ -273,7 +275,7 @@ int print_score(int *point, int N)
 {
     int i;
     printf("\nScore board\n");
-    for (i = 0; i < Yatzyrunder; i++)
+    for (i = 0; i <= Yatzyrunder; i++)
     {
         printf("%s : %d\n", Yatzy_runder[i], point[i]);
         if (i == 6)
@@ -283,6 +285,7 @@ int print_score(int *point, int N)
     }
     return 0;
 }
+
 // her tjekkes der for bonus
 void bonus(int *point)
 {

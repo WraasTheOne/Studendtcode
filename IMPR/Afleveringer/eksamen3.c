@@ -3,6 +3,7 @@ Nicholas Mazur Hansen
 nmha22@student.aau.dk
 Cyber- og computerteknologi
 */
+
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -38,6 +39,7 @@ int compare(const void *a, const void *b);
 int index_af_hold(char *hold_navn);
 int kamp_point_resultat(HOLD *hold, KAMP kamp);
 int er_strenge_lig(char *str1, char *str2);
+
 
 int main(void)
 {
